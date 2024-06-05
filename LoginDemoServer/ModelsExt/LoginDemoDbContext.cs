@@ -6,10 +6,13 @@ namespace LoginDemoServer.Models;
 
 public partial class LoginDemoDbContext : DbContext
 {
-    public Models.Users GetUSerFromDB(string email)
+    public Models.User GetUSerFromDB(string email)
     {
-        Models.Users user = this.Users.Where(u => u.Email == email).FirstOrDefault();
-        return user;
+        return this.Users.Where(u => u.Email == email).FirstOrDefault();
+    }
+    public Models.User GetUserGrades(string email) 
+    {
+        return this.Users.Where(u => u.Email == email).Include(g => g.Grades).FirstOrDefault();
     }
 }
 
